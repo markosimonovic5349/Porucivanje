@@ -1,22 +1,19 @@
 package scenes;
 
-import scenes.PocetniStage;
-import scenes.OpcijeStage;
 import entities.Korisnik;
+import exceptions.NotValidEcveption;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Marko Simonovic
- */
+
 public class RegisterStage extends Application {
 
     @Override
@@ -31,7 +28,7 @@ public class RegisterStage extends Application {
         TextField userNameTxt = new TextField();
 
         Label passwordLabel = new Label("Password:");
-        TextField passwordTxt = new TextField();
+        PasswordField passwordTxt = new PasswordField();
 
         Label brojTelefonaLabel = new Label("Broj telefona:");
         TextField brojTelefonaTxt = new TextField();
@@ -45,11 +42,18 @@ public class RegisterStage extends Application {
             if (userNameTxt.getText().trim().equals("") || passwordTxt.getText().trim().equals("") || brojTelefonaTxt.getText().trim().equals("") || adresaTxt.getText().trim().equals("")) {
                 prikaziAlert("Alert", "Sva polja su obavezna!");
             } else {
-                Korisnik k = new Korisnik(userNameTxt.getText().trim(), passwordTxt.getText().trim(), brojTelefonaTxt.getText().trim(), adresaTxt.getText().trim());
-                db.KorisnikCrud.addKorisnik(k);
-                primaryStage.close();
-                new OpcijeStage(k).start(primaryStage);
+
+                try {
+                    Korisnik k = new Korisnik(userNameTxt.getText().trim(), passwordTxt.getText().trim(), brojTelefonaTxt.getText().trim(), adresaTxt.getText().trim());
+                    db.KorisnikCrud.addKorisnik(k);
+                    primaryStage.close();
+                    new OpcijeStage(k).start(primaryStage);
+
+                } catch (NotValidEcveption ex) {
+                    prikaziAlert("Nevalidan broj", "Nevalidan broj!");
+                }
             }
+
         });
 
         VBox root = new VBox(10);
@@ -79,9 +83,7 @@ public class RegisterStage extends Application {
         alert.showAndWait();
     }
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
         launch(args);
     }

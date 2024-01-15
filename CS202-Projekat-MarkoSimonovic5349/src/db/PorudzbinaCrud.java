@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package db;
 
 import entities.Korisnik;
 import entities.Porudzbina;
 import entities.Proizvod;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,12 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author Marko Simonovic
- */
 public class PorudzbinaCrud {
-
+    // Metoda za dodavanje porudžbine u bazu podataka
     public static void addPorudzbina(Porudzbina p) {
         try {
             DBUtil.openConnection();
@@ -57,10 +48,11 @@ public class PorudzbinaCrud {
         }
     }
 
+    // Metoda za vraćanje porudžbina na osnovu korisnika
     public static List<Porudzbina> returnPorudzbineByKorisnik(Korisnik k) {
         List<Porudzbina> porudzbine = new ArrayList<>();
         List<Integer> porudzbineID = new ArrayList<>();
-        
+
         try {
             DBUtil.openConnection();
             String query = "SELECT porudzbina_ID "
@@ -77,7 +69,6 @@ public class PorudzbinaCrud {
                     ex.printStackTrace();
                 }
             }
-//            st.close();
 
             for (Integer integer : porudzbineID) {
                 Map<Proizvod, Integer> putanjeKolicineMapa = new HashMap<>();
@@ -85,9 +76,9 @@ public class PorudzbinaCrud {
                         + "FROM `porudzbina` "
                         + "JOIN korpa on porudzbina.porudzbina_ID = korpa.porudzbina_FK "
                         + "WHERE porudzbina_ID = " + integer.toString();
-      
-                 rs = st.executeQuery(query);
-                
+
+                rs = st.executeQuery(query);
+
                 while (rs.next()) {
                     try {
                         putanjeKolicineMapa.put(db.ProizvodCrud.getProizvodByPutanja(rs.getString("putanjaSLike_FK")), rs.getInt("kolicina"));
@@ -96,10 +87,9 @@ public class PorudzbinaCrud {
                     }
                 }
                 porudzbine.add(new Porudzbina(k, putanjeKolicineMapa));
-                
-                
+
             }
-            
+
             DBUtil.closeConnection();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -108,12 +98,4 @@ public class PorudzbinaCrud {
         return porudzbine;
 
     }
-//SELECT korpa.putanjaSLike_FK , korpa.kolicina
-//FROM porudzbina
-//JOIN korpa on porudzbina.porudzbina_ID = korpa.porudzbina_FK
-//WHERE porudzbina_ID = 25
-
-//SELECT porudzbina_ID 
-//FROM `porudzbina` 
-//WHERE userName_FK  like 'Marko03'
 }

@@ -1,20 +1,21 @@
 package scenes;
 
 import entities.Korisnik;
-import db.DBUtil;
+import exceptions.NotValidEcveption;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class LogInStage extends Application {
+public class LogInStage extends Application{
 
     @Override
     public void start(Stage primaryStage) {
@@ -28,23 +29,30 @@ public class LogInStage extends Application {
         TextField userNameTxt = new TextField();
 
         Label passwordLabel = new Label("Password:");
-        TextField passwordTxt = new TextField();
+        PasswordField passwordTxt = new PasswordField();
 
         Button btnLogIn = new Button("Log in");
 
         btnLogIn.setOnAction((event) -> {
-            Korisnik k = db.KorisnikCrud.getKorinsik(userNameTxt.getText().trim());
+            Korisnik k = null;
+            try {
+                k = db.KorisnikCrud.getKorinsik(userNameTxt.getText().trim());
+            } catch (NotValidEcveption ex) {
+                Logger.getLogger(LogInStage.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if (k != null) {
                 if (passwordTxt.getText().trim().equals(k.getPassword())) {
                     primaryStage.close();
                     new OpcijeStage(k).start(primaryStage);
                 } else {
+                    
                     prikaziAlert("Alert", "Pogresna lozinka!");
                 }
             } else {
                 prikaziAlert("Alert", "Nevazeci username!");
             }
         });
+
         
         VBox root = new VBox(10);
         VBox v1 = new VBox(2);

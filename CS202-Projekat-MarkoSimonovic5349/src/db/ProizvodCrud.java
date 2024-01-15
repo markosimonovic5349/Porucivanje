@@ -1,24 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package db;
 
-import entities.Korisnik;
 import entities.Proizvod;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Marko Simonovic
- */
-public class ProizvodCrud {
 
+public class ProizvodCrud {
+    // Metoda za dobijanje svih proizvoda iz baze podataka
     public static List<Proizvod> getProizvodi() {
         ArrayList<Proizvod> proizvodi = new ArrayList<Proizvod>();
         try {
@@ -40,6 +31,7 @@ public class ProizvodCrud {
         return proizvodi;
     }
 
+    // Metoda za dobijanje proizvoda na osnovu putanje slike
     public static Proizvod getProizvodByPutanja(String x) {
         Proizvod p = null;
         try {

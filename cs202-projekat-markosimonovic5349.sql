@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2024 at 01:09 PM
+-- Generation Time: Jan 15, 2024 at 12:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -59,21 +59,13 @@ CREATE TABLE `korpa` (
 --
 
 INSERT INTO `korpa` (`porudzbina_FK`, `putanjaSLike_FK`, `kolicina`) VALUES
-(30, 'duks', 1),
-(30, 'majica', 5),
-(30, 'kapa', 2),
-(31, 'duks', 1),
-(32, 'duks', 1),
-(33, 'majica', 1),
-(34, 'kapa', 6),
-(34, 'majica', 66),
-(34, 'duks', 6),
-(35, 'duks', 1),
-(36, 'duks', 1),
-(37, 'duks', 3),
-(37, 'kapa', 3),
-(38, 'duks', 1),
-(38, 'kapa', 2);
+(42, 'kapa', 2),
+(42, 'duks', 1),
+(43, 'kapa', 20),
+(44, 'majica', 31),
+(45, 'kapa', 5),
+(45, 'duks', 12),
+(45, 'majica', 2);
 
 -- --------------------------------------------------------
 
@@ -91,15 +83,10 @@ CREATE TABLE `porudzbina` (
 --
 
 INSERT INTO `porudzbina` (`porudzbina_ID`, `userName_FK`) VALUES
-(32, 'Marko03'),
-(33, 'Marko03'),
-(34, 'Marko03'),
-(35, 'Marko03'),
-(36, 'Marko03'),
-(37, 'Marko03'),
-(38, 'Marko03'),
-(30, 'Veljko01'),
-(31, 'Veljko01');
+(45, 'Marko03'),
+(42, 'Veljko01'),
+(43, 'Veljko01'),
+(44, 'Veljko01');
 
 -- --------------------------------------------------------
 
@@ -160,7 +147,7 @@ ALTER TABLE `proizvod`
 -- AUTO_INCREMENT for table `porudzbina`
 --
 ALTER TABLE `porudzbina`
-  MODIFY `porudzbina_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `porudzbina_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- Constraints for dumped tables

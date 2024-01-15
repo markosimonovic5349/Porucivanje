@@ -2,33 +2,25 @@ package scenes;
 
 import entities.Porudzbina;
 import entities.Proizvod;
-import scenes.OpcijeStage;
 import entities.Korisnik;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Marko Simonovic
- */
+
 public class PonudaStage extends Application {
 
     private Korisnik k;
@@ -54,7 +46,7 @@ public class PonudaStage extends Application {
         VBox v1 = new VBox(10);
 
         for (Proizvod proizvod : proizvodi) {
-            ImageView img = new ImageView("file:src/" + proizvod.getPutanjaSlike() + ".jpg");
+            ImageView img = new ImageView("file:src/images/" + proizvod.getPutanjaSlike() + ".jpg");
             img.setFitHeight(50);
             img.setFitWidth(50);
             Label opis = new Label("Porizvod: " + proizvod.getNaziv() + "\n" + "Cena: " + String.valueOf(proizvod.getCena()));
@@ -149,9 +141,7 @@ public class PonudaStage extends Application {
         alert.showAndWait();
     }
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
         launch(args);
     }

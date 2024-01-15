@@ -1,22 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package db;
 
 import entities.Korisnik;
-import java.sql.DriverManager;
+import exceptions.NotValidEcveption;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- *
- * @author Marko Simonovic
- */
 public class KorisnikCrud {
-
+    // Metoda za dodavanje korisnika u bazu podataka
     public static void addKorisnik(Korisnik user) {
         try {
             DBUtil.openConnection();
@@ -31,8 +23,9 @@ public class KorisnikCrud {
             ex.printStackTrace();
         }
     }
-
-    public static Korisnik getKorinsik(String x) {
+    
+    // Metoda za dobijanje korisnika na osnovu korisničkog imena
+    public static Korisnik getKorinsik(String x) throws NotValidEcveption {
         Korisnik k = null;
         try {
             DBUtil.openConnection();
@@ -47,7 +40,7 @@ public class KorisnikCrud {
                 k = new Korisnik(u, p, t, a);
             }
             st.close();
-            
+
             DBUtil.closeConnection();
         } catch (SQLException ex) {
             ex.printStackTrace();
